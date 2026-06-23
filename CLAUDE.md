@@ -1,0 +1,101 @@
+# Verde Landscaping Inc. — website rebuild
+
+Static marketing site for **verdelandscapinginc.com**, a real family-run AZ landscaping business. This is a separate project from Gavin's Verde Vision visionOS app and its marketing site (`Verde-Vision-Website`) — no shared code, no shared brand requirement, just the same developer.
+
+## Stack
+Plain static HTML/CSS/JS, no build step — same approach as `Verde-Vision-Website`. Deploy target: Netlify/Vercel/Cloudflare Pages (free, auto-HTTPS) for previews, then point the GoDaddy-registered domain at it for launch.
+
+## Build progress
+- **Home page built (2026-06-23):** `index.html` + `styles.css` + `main.js`. Sections: nav → hero ("The desert, kept beautifully") → trust strip → services (co-equal Maintenance + Installs cards + service tags) → "You don't even need to be home" walkthrough steps → hyper-local section → About (Tanner & Heather) → contact + form → footer. Verified in browser preview, looks strong.
+- **Design system lives in `styles.css` `:root`:** desert-light tokens (paper/sand/stone, --sage, --clay terracotta accent), Fraunces+Archivo, grain overlay, `.ph` duotone placeholder system, `.reveal` scroll animations. Reuse these tokens on every other page for consistency.
+- **Photos: REAL client photos now (2026-06-23).** Gavin sent 12 phone photos (Sonoran desert, cactus blooms, sunsets, boulders). Web-optimized into `assets/photos/` (`hero,maint,install,local,about,g1–g6.jpg`) with Pillow (`ImageOps.exif_transpose` — phone EXIF rotation matters). **Hero = the sunset-behind-mountain shot (was IMG_0520).** Wired via `.ph[data-seed="..."]` CSS rules, shown natural full color. Source originals in `~/Downloads/verde_photos/`. Still placeholders for some slots (e.g. no real "install in progress" or team/portrait shots) — swap as better photos come in.
+- **Logo in nav = horizontal lockup** (`assets/verde-lockup-{dark,light}.png`): real agave + real "VERDE LANDSCAPING INC" letters composited side-by-side with Pillow (Gavin objected to the earlier agave-mark-only-plus-typed-text; he wanted the logo's own text kept). Footer = full vertical logo. Nav lockup toggles light(over hero)/dark(scrolled).
+- **Credibility marquee** replaced the static trust grid: thin dark-green strip, uppercase tracked items sliding left infinitely (CSS `@keyframes mq` → `translateX(-50%)`, 42s linear, pause on hover, duplicated span set for seamless loop). Modeled on the Fable mockup's `.marquee`.
+- **Contact form:** action points at a Formspree placeholder (`formspree.io/f/your-id-here`) — **must replace with a real Formspree/Web3Forms endpoint wired to verdelandscaping03@gmail.com before launch.** Fields include gate code/access + dog-on-property (for the no-homeowner-present walkthroughs).
+- **Local preview:** static, served via `python3 -m http.server`. A launch.json for the preview tool was added at `Verde-Vision/.claude/launch.json` (session root) serving this folder on :4321 — that's a tooling artifact in the *app* repo, not part of this site; ignore/remove as desired.
+- **Still TODO:** other pages (Maintenance, Installs & Projects, Plant & Tree Care, Gallery, About, Contact) — Home is built as a near-complete single page, so those can either become real subpages or the site can stay one-page-plus-anchors; decide with Gavin. Real photos, real Formspree endpoint, favicon/logo, and the >15ft tree-trim expectation copy still to add.
+
+## The business (verified facts, 2026-06-23)
+- Owners: **Tanner & Heather Bush**. Family business since **2003**.
+- Service area: **Rio Verde, Tonto Verde, Verde River, AZ** (communities NE of Scottsdale).
+- Scale: **300+ residential homes & townhomes** + **community associations (HOAs)**.
+- **Fully Licensed, Bonded & Insured — Arizona ROC License #307998.**
+- Address: 19206 E Rio Verde Drive, Rio Verde, AZ 85263
+- Phone: **480-471-7480** · Email: **verdelandscaping03@gmail.com** · Hours: Mon–Fri 6am–2pm, call for appointment.
+- Review presence: Yelp, Angi, Nextdoor, Houzz, BBB, Manta, ZoomInfo — mine for testimonials once we're ready for a trust section.
+
+## Revenue model & services (from Tanner/Gavin, 2026-06-23)
+**Maintenance is the core/recurring business.** 300+ active contracts, majority on **monthly maintenance**. Anything outside a maintenance contract is billed **hourly**. This is the single most important business fact for the site: **maintenance cannot be quoted online or sight-unseen — it requires an in-person yard walkthrough.** This kills the idea of an instant-quote form as the primary CTA; the primary CTA should be framed as "schedule a walkthrough" / "request a site visit," not "get an instant quote."
+
+**Growth goal (confirmed 2026-06-23): more residential maintenance contracts AND more installed jobs — installs are explicitly "where the money is."** This means the site's priority isn't just protecting the maintenance flagship; **Installs & Projects (irrigation/planting installs, boulders, gravel, lighting, mounds) needs prominent placement on the homepage and nav, not buried as a secondary page.** Treat Maintenance and Installs & Projects as co-equal primary CTAs, not flagship-vs-afterthought.
+
+**Lead intake (confirmed 2026-06-23):** business runs entirely through **Gmail** (verdelandscaping03@gmail.com) — no CRM, no scheduling tool. Build a **real contact form** (name, address, phone, what they need, notes) using a free no-backend form service (e.g. Formspree, Web3Forms) that **forwards submissions straight to that Gmail inbox** — not a bare `mailto:` link. This keeps their workflow completely unchanged (everything still lands in Gmail, they still call back to schedule) while making the site feel professional and capturing structured lead info before the first call. No new dashboard/tool for Tanner & Heather to learn.
+
+**Customer does NOT need to be present for the walkthrough (confirmed 2026-06-23).** The crew can walk the yard on their own and send a quote afterward — faster for the business, and a genuine convenience selling point for the customer (no need to take time off work or be home). Tradeoff: loses the in-person personal-touch moment with Tanner. **Copy implication:** don't frame the CTA as "schedule an appointment to meet us" — frame it as low-friction, e.g. *"Request a free walkthrough — you don't even need to be home. We'll walk the yard and send your quote."* This should be a stated benefit on the Home/Contact CTA, not just implied. Likely also means the intake form should ask for **gate/access info** (gate code, dog on property, best way in) since the crew may show up without the homeowner there.
+
+**Service area (confirmed 2026-06-23): stay hyper-local.** Rio Verde, Tonto Verde, Verde River only — do NOT expand messaging to Fountain Hills/Scottsdale/etc. The "we know this specific community" angle is a deliberate differentiator vs. larger AZ landscaping companies.
+
+**What a standard maintenance contract includes:** everything, EXCEPT:
+- Tree trimming over 15 ft — billed separately. In practice, Tanner's crew trims proactively whenever they judge it's needed (not an opt-in customer request) and then bills for that work after the fact. **Copy needs to set this expectation up front** so a separate line-item bill doesn't surprise a customer — e.g. "Your contract covers trimming up to 15 ft. For taller trees, we'll trim when needed and bill that work separately."
+- Pre-emergent (once a year) — billed separately, price varies by yard size. (Subcontracted, see below.)
+
+**Add-on: Weekly Irrigation Check — $100/month.** Includes: check the timer, check all valves, run them manually, check for leaks, and fix leaks if found. Customer pays for **parts only**, not labor, on any leak fix.
+
+**Direct services (performed in-house):**
+- **Monthly maintenance contracts** (flagship/primary revenue) — see inclusions/exclusions above
+- Weekly Irrigation Check add-on — $100/mo, see above
+- Irrigation installs
+- Planting installs
+- Placing boulders
+- Laying gravel
+- Low voltage lighting
+- Tree trimming up to 15 ft (included in maintenance); over 15 ft billed separately, done proactively by the crew — **explicitly NOT arborists**, routine trimming only, not tree health/removal work
+- Fertilization (general)
+- Citrus fertilization
+- Building mounds (earthwork/grading)
+
+~~AI design renderings~~ — **scrapped 2026-06-23**, not actually offered, drop entirely from services/site.
+
+**Subcontracted (Verde Landscaping coordinates these, doesn't perform them directly) — confirmed OK to present as "we coordinate this for you":**
+- Pre-emergent weed control (once/year, billed separately, price scales with yard size)
+- Pest control: whiteflies, aphids, agave weevils
+
+## Current live site (what we're replacing)
+Thin one-page placeholder on **GoDaddy Website Builder** (`home.html`). Nav items (About/Services/Contact) are stubs with no real content. Site currently serves a **broken TLS certificate** (`ERR_TLS_CERT_ALTNAME_INVALID` on both apex and `www`) — moving to a new host with auto-HTTPS fixes this as a side effect.
+
+## Domain / DNS
+Registered at **GoDaddy** (created 2013-04-17, expires 2027-04-17), DNS also on GoDaddy nameservers (`ns45/46.domaincontrol.com`), currently pointing at AWS Global Accelerator IPs (the GoDaddy builder). To go live on the real domain: whoever holds the **GoDaddy login** needs to update ~2 DNS records to point at the new host — a 5-minute step, not a migration. No domain access is needed to build or to deploy a free preview URL.
+
+**Confirmed 2026-06-23: Gavin holds the GoDaddy login.** Deliberately NOT shared with/stored by Claude (credentials shouldn't go through chat). Plan for launch: deploy to the new host first, get the exact DNS values it requires, then Gavin logs into GoDaddy himself and pastes them in — Claude provides the values/instructions but never the password.
+
+## Design reference
+A Fable 5–generated mockup exists (originally at `~/Downloads/verde-landscaping (19).html`) — dark "sunset gold" palette (Fraunces serif + Archivo sans, deep warm-night background, gold accents). **Decided 2026-06-23: going LIGHT instead**, not dark. Gavin's call — light reads more premium/professional for a residential landscaping audience, and fits the "fresh, outdoors, daylight" category better than a moody dark UI. Treat the Fable mockup as reference for layout/structure only, not palette. Reuse Fraunces (serif) + Archivo (sans) as a starting typographic pairing, just on a light/cream-and-green palette instead of dark.
+
+**Style direction (current as of 2026-06-23, "Sonoran Modern Classic"):** premium, centered, editorial. Palette: **warm ivory (#F2ECE0) + near-black ink (#22201B) + one deep refined green (#34453A, a nod to "Verde")**, deep-green bands (#1E2922) for the marquee + contact. Fonts: **Cormorant Garamond (display serif) + Archivo (body)** — Gavin asked for something "more professional and closer to the logo text" (the logo's VERDE is Trajan-style Roman caps); Cormorant's classical serif suits that far better than the earlier Fraunces. **ALL home-page text is centered** (Gavin's explicit request) except form inputs (kept left for usability). Premium through restraint + big photography, à la Creative Environments.
+- **Color history (don't relitigate):** dark "sunset gold" (Fable mockup) → rejected. Terracotta/orange accent → rejected (too loud). Tan + green (#41502F) → Gavin "still not loving it." Current ivory/ink/deep-green is the premium direction he asked for. If revisiting, go MORE restrained/premium, not louder.
+
+**Reference: Creative Environments (creativeenvironments.com).** Gavin wants that feel — photo-forward, gallery-like, premium through restraint (charcoal/white/earth, big high-res full-color imagery as the hero, minimal decoration). Acted on this by (a) dropping the heavy grayscale duotone on photos in favor of **natural full-color** with only a whisper of tint, and (b) adding a **3-col gallery grid** ("Selected work") section.
+
+**Logo (added 2026-06-23):** real logo is the agave/century-plant + "VERDE LANDSCAPING INC" serif wordmark (source: `~/Downloads/logos 001.jpg`, black on white). Processed with Pillow into transparent PNGs in `assets/`: `verde-mark-{dark,light}.png` (tall agave symbol → nav, light over hero / dark when scrolled), `verde-logo-{dark,light}.png` (full lockup → footer), `verde-rosette-{dark,light}.png` (rosette → favicon). To regenerate: white→transparent via `alpha = 255 - L`, ink color #2A2620 / paper #F4EFE5; the source JPG is a tight scan with faint edge speckle, so trim by getbbox on a despeckled (alpha>180 + MedianFilter) mask, not raw bbox.
+
+## Page structure (decided 2026-06-23)
+**Multi-page**, not one-page — Gavin confirmed the service list is large enough to warrant it. Draft page map, now that the services list exists:
+- **Home** — hero with primary CTA "Schedule a Walkthrough" (not "get a quote" — maintenance pricing requires seeing the yard), trust strip (ROC #307998, since 2003, 300+ homes), services overview giving **co-equal visual weight to Maintenance and Installs & Projects** (growth goal is both, installs are "where the money is"), gallery teaser, contact block with the Gmail-backed form.
+- **Maintenance** — own dedicated page, the recurring-revenue flagship.
+- **Installs & Projects** — irrigation installs, planting installs, boulders, gravel, low-voltage lighting, mounds/grading. Billed hourly; this is a co-equal growth priority with Maintenance, not a secondary page — give it real homepage presence.
+- **Plant & Tree Care** — fertilization, citrus fertilization, routine tree trimming up to 15 ft (included in maintenance) with a clear, non-alarming explanation of the over-15-ft separate billing, plus the "not arborists" scope note. Also where the coordinated pre-emergent/pest control gets a short transparent mention ("we coordinate this for you, billed separately").
+- **Gallery** — before/after photos, the highest-converting content once photos exist.
+- **About** — Tanner & Heather's story, family business since 2003.
+- **Contact** — phone/email/address/hours + walkthrough-request form.
+
+## Open gaps before/while building
+1. ~~Service list~~ — RESOLVED 2026-06-23, see Revenue model & services above.
+2. **Project photos** — none exist yet (would require visiting yards to shoot). **Decision 2026-06-23: use stock photography as placeholders for now**, swap to real photos later. Keep stock images easy to find/replace (clear naming/comments) so the swap is low-friction once Tanner/Heather shoot real ones.
+3. **Testimonials** — confirmed 2026-06-23: business is small, word-of-mouth, thin online review presence — don't force a testimonials section that overclaims. Lean on concrete trust signals instead (ROC #307998, since 2003, 300+ homes/contracts) rather than manufactured-feeling quotes. Revisit if/when real reviews accumulate.
+4. **GoDaddy account access** — who can change DNS at launch time. Still open.
+5. ~~Light vs. dark direction~~ — RESOLVED 2026-06-23: light/premium, see Design reference above.
+6. ~~Lead intake mechanism~~ — RESOLVED 2026-06-23: form forwarding to Gmail, see Revenue model & services above.
+7. ~~Service area scope~~ — RESOLVED 2026-06-23: hyper-local only.
+
+## GitHub
+**Decided 2026-06-23: staying local-only, not pushed to GitHub.** Gavin's other repos (`Verde-Vision`, `Verde-Vision-Website`) live under a collaborator's GitHub account (`anujprabhu01`); deliberate choice to keep this one off that namespace and just local for now. Local git still gives full version history. Deployment does not require GitHub — deploy directly from the local folder via the host's CLI (e.g. `netlify deploy`, `vercel`) or drag-and-drop, once we pick a host. Tradeoff accepted: no off-device backup unless Gavin sets one up separately later (e.g. periodic zip, or a private personal-account repo) — not a current blocker.
