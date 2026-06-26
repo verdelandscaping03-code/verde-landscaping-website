@@ -159,7 +159,7 @@ a{color:inherit;text-decoration:none}
 .services{padding:5rem var(--pad) 9rem;text-align:center}
 .svc-head{max-width:720px;margin:0 auto}
 .svc-head .label{font-size:.92rem;font-weight:600;letter-spacing:.34em;color:var(--green-deep)}
-.svc-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,4.6vw,3.7rem);line-height:1.06;letter-spacing:-.015em;color:var(--cream);margin-top:1.2rem}
+.svc-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.2rem,4.4vw,3.6rem);line-height:1.06;letter-spacing:-.015em;color:var(--cream);margin-top:1.2rem}
 .svc-head h2 em{font-style:italic;color:var(--green-lt)}
 .svc-divider{display:flex;align-items:center;justify-content:center;gap:1rem;margin:1.3rem auto 0;max-width:200px;color:var(--green-deep)}
 .svc-divider::before,.svc-divider::after{content:"";flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(166,132,62,.5),transparent)}
@@ -562,7 +562,7 @@ a{color:inherit;text-decoration:none}
   <div class="areas-bg"></div>
   <div class="areas-inner">
     <span class="label reveal">Where We Work</span>
-    <h2 class="reveal d1">Proudly rooted in<br>the <em>Verde Valley.</em></h2>
+    <h2 class="reveal d1">Three communities.<br><em>One crew you know.</em></h2>
     <p class="areas-note reveal d2">300+ homes and community associations across three desert communities.</p>
     <ul class="area-list">
       <li class="reveal d1"><span class="nm">Rio Verde</span><span class="zip">Home Base · 85263</span></li>
@@ -592,8 +592,8 @@ a{color:inherit;text-decoration:none}
         <span class="label">What Happens Next</span>
         <ol>
           <li><span class="ns-num">01</span><div class="ns-copy"><span class="ns-t">Tell us about your yard</span><span class="ns-d">Share your property address and what you need below.</span></div></li>
-          <li><span class="ns-num">02</span><div class="ns-copy"><span class="ns-t">We schedule a walkthrough</span><span class="ns-d">We'll call to set up a time to see your yard in person.</span></div></li>
-          <li><span class="ns-num">03</span><div class="ns-copy"><span class="ns-t">You get a quote</span><span class="ns-d">Usually within one business day.</span></div></li>
+          <li><span class="ns-num">02</span><div class="ns-copy"><span class="ns-t">We schedule a walkthrough</span><span class="ns-d">We'll email you to set up a time to see your yard in person.</span></div></li>
+          <li><span class="ns-num">03</span><div class="ns-copy"><span class="ns-t">You get a quote</span><span class="ns-d">We'll follow up with your number after we've seen the yard.</span></div></li>
         </ol>
       </div>
     </div>
@@ -606,36 +606,12 @@ a{color:inherit;text-decoration:none}
         <div class="field"><label for="ph">Phone</label><input id="ph" type="tel" autocomplete="tel" required></div>
         <div class="field"><label for="em">Email</label><input id="em" type="email" autocomplete="email" required></div>
         <div class="field"><label for="addr">Property Address</label><input id="addr" type="text" autocomplete="street-address" required></div>
-        <div class="field"><label for="sv">Service</label>
-          <select id="sv">
-            <optgroup label="Maintenance">
-              <option>Regular Maintenance</option>
-              <option>Tree Trimming &amp; Removal</option>
-              <option>Pre-Emergent Treatment</option>
-              <option>Citrus Fertilization</option>
-            </optgroup>
-            <optgroup label="Installs">
-              <option>Desert Plantings</option>
-              <option>Gravel Install &amp; Refresh</option>
-              <option>Boulders &amp; Mounding</option>
-              <option>Water Feature Install</option>
-            </optgroup>
-            <optgroup label="Irrigation">
-              <option>Irrigation Checks</option>
-              <option>Emitter Replacement</option>
-              <option>Irrigation Install &amp; Replacement</option>
-            </optgroup>
-            <optgroup label="Lighting">
-              <option>Landscape Lighting Install</option>
-            </optgroup>
-          </select>
-        </div>
-        <div class="field"><label for="msg">Message</label><textarea id="msg" placeholder="Tell us about your property…"></textarea></div>
+        <div class="field"><label for="msg">Message</label><textarea id="msg" placeholder="Tell us what you're looking for…"></textarea></div>
         <button class="btn btn-solid" id="sendBtn" type="button">Send My Request →</button>
       </div>
       <div class="form-success" id="formSuccess">
         <div class="big">Request sent.</div>
-        <p>Thanks for reaching out — we'll get back to you within one business day. For anything urgent, call <a href="tel:4804717480">480-471-7480</a>.</p>
+        <p>Thanks for reaching out — we'll be in touch soon. For anything urgent, call <a href="tel:4804717480">480-471-7480</a>.</p>
       </div>
     </div>
   </div>
