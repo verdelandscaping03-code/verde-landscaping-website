@@ -306,6 +306,9 @@ a{color:inherit;text-decoration:none}
 .form input:focus,.form select:focus,.form textarea:focus{outline:none;border-bottom:1.5px solid var(--green-lt)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem}
 .form .btn-solid{margin-top:.6rem;border:0}
+.form-error{display:none;color:#C0533C;font-size:.92rem;line-height:1.5}
+.form-error.show{display:block}
+.form-error a{color:#C0533C;text-decoration:underline}
 .form-success{display:none;padding:2rem 0}
 .form-success.show{display:block}
 .form-success .big{font-family:var(--serif);font-style:italic;font-size:1.8rem;margin-bottom:.8rem;color:var(--cream)}
@@ -598,17 +601,19 @@ a{color:inherit;text-decoration:none}
       </div>
     </div>
     <div class="form reveal d1">
-      <div id="formFields">
+      <form id="formFields" action="https://formspree.io/f/mvzjavov" method="POST">
+        <input type="hidden" name="_subject" value="New quote request — Verde Landscaping website">
         <div class="form-row">
-          <div class="field"><label for="fn">First Name</label><input id="fn" type="text" autocomplete="given-name" required></div>
-          <div class="field"><label for="ln">Last Name</label><input id="ln" type="text" autocomplete="family-name" required></div>
+          <div class="field"><label for="fn">First Name</label><input id="fn" name="First Name" type="text" autocomplete="given-name" required></div>
+          <div class="field"><label for="ln">Last Name</label><input id="ln" name="Last Name" type="text" autocomplete="family-name" required></div>
         </div>
-        <div class="field"><label for="ph">Phone</label><input id="ph" type="tel" autocomplete="tel" required></div>
-        <div class="field"><label for="em">Email</label><input id="em" type="email" autocomplete="email" required></div>
-        <div class="field"><label for="addr">Property Address</label><input id="addr" type="text" autocomplete="street-address" required></div>
-        <div class="field"><label for="msg">Message</label><textarea id="msg" placeholder="Tell us what you're looking for…"></textarea></div>
-        <button class="btn btn-solid" id="sendBtn" type="button">Send My Request →</button>
-      </div>
+        <div class="field"><label for="ph">Phone</label><input id="ph" name="Phone" type="tel" autocomplete="tel" required></div>
+        <div class="field"><label for="em">Email</label><input id="em" name="Email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="addr">Property Address</label><input id="addr" name="Property Address" type="text" autocomplete="street-address" required></div>
+        <div class="field"><label for="msg">Message</label><textarea id="msg" name="Message" placeholder="Tell us what you're looking for…"></textarea></div>
+        <div class="field form-error" id="formError">Something went wrong sending your request — please call <a href="tel:4804717480">480-471-7480</a> or email <a href="mailto:verdelandscaping03@gmail.com">verdelandscaping03@gmail.com</a> directly.</div>
+        <button class="btn btn-solid" id="sendBtn" type="submit">Send My Request →</button>
+      </form>
       <div class="form-success" id="formSuccess">
         <div class="big">Request sent.</div>
         <p>Thanks for reaching out — we'll be in touch soon. For anything urgent, email us directly at <a href="mailto:verdelandscaping03@gmail.com">verdelandscaping03@gmail.com</a>.</p>
@@ -696,7 +701,11 @@ a{color:inherit;text-decoration:none}
   }, {threshold:.12, rootMargin:'0px 0px -40px 0px'});
   document.querySelectorAll('.reveal:not(.in-load), .hline').forEach(function(el){ io.observe(el); });
 
-  document.getElementById('sendBtn').addEventListener('click', function(){
+  var contactForm = document.getElementById('formFields');
+  var sendBtn = document.getElementById('sendBtn');
+  var formError = document.getElementById('formError');
+  contactForm.addEventListener('submit', function(e){
+    e.preventDefault();
     var ok = true;
     ['fn','ln','ph','em','addr'].forEach(function(id){
       var f = document.getElementById(id);
@@ -704,8 +713,26 @@ a{color:inherit;text-decoration:none}
       else { f.style.borderBottomColor = ''; }
     });
     if(!ok) return;
-    document.getElementById('formFields').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
+    formError.classList.remove('show');
+    sendBtn.disabled = true;
+    sendBtn.textContent = 'Sending…';
+    fetch(contactForm.action, {
+      method: 'POST',
+      body: new FormData(contactForm),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if(res.ok){
+        contactForm.style.display = 'none';
+        document.getElementById('formSuccess').classList.add('show');
+      } else {
+        throw new Error('Form submission failed');
+      }
+    }).catch(function(){
+      formError.classList.add('show');
+    }).finally(function(){
+      sendBtn.disabled = false;
+      sendBtn.textContent = 'Send My Request →';
+    });
   });
 })();
 </script>
