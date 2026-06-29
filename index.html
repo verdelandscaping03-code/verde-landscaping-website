@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Verde Landscaping Inc. — Rio Verde, Arizona</title>
 <meta name="description" content="Family-run landscaping in Rio Verde, Tonto Verde & Verde River, AZ. Licensed, bonded & insured. Serving 300+ homes since 2003.">
-<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAABACAMAAACTHv+DAAAAP1BMVEXz7uPy69/07uP17+S3t7f6+rN/f3//r6///wD/f3///3//AAAAAAD+/vz7+O7y7OEAAAAAAAAAAAAAAAAAAAC0VYGWAAAAEHRSTlNfHZjPAwQCAwECAgEAA/z6OnwOmwAAAi5JREFUeNrFl4tywiAQRfdBorXs8v9/27ugqY4SA52pjGN0wmGfkBvK/cHGrmbd+5T3BnmxbDMs8SRrMCr4MA+zZlbcxXnPr65dI9ICt3kuVwyn3akX8Q4LgsoUu1xglVyFbPkezFUtrrZoR+0yiusFV/waylUU14lE2ExQKnvZmT0WRGEGy6UUVPk4myyKA4M5FvEwP2CX0RmKVAkacyhehAcuegMVwl8eYSNVsQ0kKHhNx302Y63hStj2SNurZPXiXQgdJSWjTiI6YDfnNZqCguTxPWiRahjMBpudM4v2thG2MAl1T7u9/QuvZercaKXifLJZlnaO57ds/hSbZln+Gzvpc2yE2fq2Ak8+Q9PfWJpl3xTpPbt8iD19KN70/zVKn+urf2etaoU5dsXGP0+yF2z83Go09Eyx5rOzBduNmrrPotCxcWBBJKkdZrm5iWc/18NOymG7VrUrpxBWLCGXjtuNSON8VC8FdrGEwo+zpSM+r8AgjYoXDzmK72b2fIANHQjxG4JOJVYgyDtocbbzG/Zk/EUBPg71p+PndY243OB6rfoQovKyx4YsgbZRLU+Gq5i1Z9bWZOl2o4mxJ5S25TF3rXPp+24xpCSGVBcfyEg47twpy2ieJgFDDG2D4bSqb4GWKi23gblNE2M1qqNafBCjIBUzqxdKtzcB/gXwuW8YW+x07eX6dlPnkzZVu9ylarHo9Wv89rUFHk2JdxT0pbXchjrUJt7rvGtefwCCtqLwaToybgAAAABJRU5ErkJggg==">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<meta property="og:image" content="https://verdelandscapinginc.com/assets/favicon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://verdelandscapinginc.com/assets/favicon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -184,8 +191,9 @@ a{color:inherit;text-decoration:none}
 .svc-card.d1,.svc-card.d2,.svc-card.d3,.svc-card.d4,.svc-card.d5{transition-delay:0s}
 .svc-card:hover{z-index:3;transform:scale(1.035);box-shadow:0 2px 2px rgba(36,31,22,.06),0 30px 50px -22px rgba(70,55,25,.38)}
 .svc-card-media{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--night)}
-.svc-card-media img{width:100%;height:100%;object-fit:cover;filter:saturate(1) brightness(.99);transition:filter .18s ease-out}
-.svc-card:hover .svc-card-media img{filter:saturate(1.08) brightness(1.04)}
+.svc-card-media img{width:100%;height:100%;object-fit:cover;filter:blur(9px) saturate(1) brightness(.99);transform:scale(1.28);transition:filter 1s var(--ease) var(--d),transform 1.15s var(--ease) var(--d)}
+.svc-card.reveal.in .svc-card-media img{filter:blur(0) saturate(1) brightness(.99);transform:scale(1)}
+.svc-card.reveal.in:hover .svc-card-media img{filter:blur(0) saturate(1.08) brightness(1.04);transition:filter .18s ease-out,transform .18s ease-out}
 .svc-card-body{position:relative;z-index:2;padding:0 1.5rem 1.7rem;display:flex;flex-direction:column;flex:1}
 .svc-card-body::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:rgba(166,132,62,.55);transition:background .45s}
 .svc-card:hover .svc-card-body::before{background:rgba(150,116,52,.85)}
@@ -206,20 +214,10 @@ a{color:inherit;text-decoration:none}
 }
 .svc-more svg{width:20px;height:9px;stroke:var(--green-lt);stroke-width:1.4;fill:none;transition:transform .35s var(--ease)}
 .svc-card:hover .svc-more svg{transform:translateX(6px)}
-/* layered entrance: photo curtain -> seam draw -> icon drop -> text settle, staggered per card via --d */
+/* zoom-into-focus entrance: photo starts scaled up + blurred, settles to normal as the card reveals, staggered per card via --d */
 .svc-card.d1{--d:0s}.svc-card.d2{--d:.08s}.svc-card.d3{--d:.16s}.svc-card.d4{--d:.24s}.svc-card.d5{--d:.32s}
-.svc-card .svc-card-media{clip-path:inset(0 0 100% 0);transition:clip-path 1.1s var(--ease) var(--d)}
-.svc-card.reveal.in .svc-card-media{clip-path:inset(0 0 0% 0)}
-.svc-card-body::before{transform:scaleX(0);transform-origin:left;transition:background .45s,transform .8s var(--ease) calc(var(--d) + .55s)}
-.svc-card.reveal.in .svc-card-body::before{transform:scaleX(1)}
-.svc-icon{opacity:0;transform:translateY(-14px) scale(.7);transition:border-color .45s,background .45s,opacity .55s var(--ease) calc(var(--d) + .75s),transform .55s var(--ease) calc(var(--d) + .75s)}
-.svc-card.reveal.in .svc-icon{opacity:1;transform:translateY(0) scale(1)}
-.svc-card h3{opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease) calc(var(--d) + .95s),transform .6s var(--ease) calc(var(--d) + .95s)}
-.svc-card.reveal.in h3{opacity:1;transform:translateY(0)}
-.svc-card p,.svc-card .svc-more{opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease) calc(var(--d) + 1.05s),transform .6s var(--ease) calc(var(--d) + 1.05s)}
-.svc-card.reveal.in p,.svc-card.reveal.in .svc-more{opacity:1;transform:translateY(0)}
 @media (prefers-reduced-motion:reduce){
-  .svc-card .svc-card-media,.svc-card-body::before,.svc-icon,.svc-card h3,.svc-card p,.svc-card .svc-more{transition:none!important;clip-path:none!important;transform:none!important;opacity:1!important}
+  .svc-card-media img{transition:none!important;filter:none!important;transform:none!important}
 }
 @media (max-width:1180px){
   .svc-grid{grid-template-columns:repeat(3,1fr)}
