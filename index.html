@@ -69,6 +69,7 @@ a{color:inherit;text-decoration:none}
   .line-inner{transform:none!important;transition:none!important}
   .mq-track{animation:none!important}
   #heroBg{transform:none!important}
+  [data-parallax]{transform:none!important}
 }
 
 
@@ -205,6 +206,21 @@ a{color:inherit;text-decoration:none}
 }
 .svc-more svg{width:20px;height:9px;stroke:var(--green-lt);stroke-width:1.4;fill:none;transition:transform .35s var(--ease)}
 .svc-card:hover .svc-more svg{transform:translateX(6px)}
+/* layered entrance: photo curtain -> seam draw -> icon drop -> text settle, staggered per card via --d */
+.svc-card.d1{--d:0s}.svc-card.d2{--d:.08s}.svc-card.d3{--d:.16s}.svc-card.d4{--d:.24s}.svc-card.d5{--d:.32s}
+.svc-card .svc-card-media{clip-path:inset(0 0 100% 0);transition:clip-path 1.1s var(--ease) var(--d)}
+.svc-card.reveal.in .svc-card-media{clip-path:inset(0 0 0% 0)}
+.svc-card-body::before{transform:scaleX(0);transform-origin:left;transition:background .45s,transform .8s var(--ease) calc(var(--d) + .55s)}
+.svc-card.reveal.in .svc-card-body::before{transform:scaleX(1)}
+.svc-icon{opacity:0;transform:translateY(-14px) scale(.7);transition:border-color .45s,background .45s,opacity .55s var(--ease) calc(var(--d) + .75s),transform .55s var(--ease) calc(var(--d) + .75s)}
+.svc-card.reveal.in .svc-icon{opacity:1;transform:translateY(0) scale(1)}
+.svc-card h3{opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease) calc(var(--d) + .95s),transform .6s var(--ease) calc(var(--d) + .95s)}
+.svc-card.reveal.in h3{opacity:1;transform:translateY(0)}
+.svc-card p,.svc-card .svc-more{opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease) calc(var(--d) + 1.05s),transform .6s var(--ease) calc(var(--d) + 1.05s)}
+.svc-card.reveal.in p,.svc-card.reveal.in .svc-more{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){
+  .svc-card .svc-card-media,.svc-card-body::before,.svc-icon,.svc-card h3,.svc-card p,.svc-card .svc-more{transition:none!important;clip-path:none!important;transform:none!important;opacity:1!important}
+}
 @media (max-width:1180px){
   .svc-grid{grid-template-columns:repeat(3,1fr)}
   .svc-card{border-right:1px solid rgba(36,31,22,.12);border-bottom:none}
@@ -257,7 +273,7 @@ a{color:inherit;text-decoration:none}
 
 /* ============ AREAS ============ */
 .areas{position:relative;padding:10rem var(--pad);overflow:hidden;background:var(--night)}
-.areas-bg{position:absolute;inset:0;background:url('assets/photos/IMG_0475.JPG') center/cover;filter:saturate(.9)}
+.areas-bg{position:absolute;inset:-28% 0;background:url('assets/photos/IMG_0475.JPG') center/cover;filter:saturate(.9);will-change:transform}
 .areas::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(18,13,9,.88) 30%,rgba(18,13,9,.55))}
 .areas-inner{position:relative;z-index:2;max-width:760px}
 .areas h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.05;letter-spacing:-.015em;margin:1.4rem 0 1rem;color:var(--cream)}
@@ -563,7 +579,7 @@ a{color:inherit;text-decoration:none}
 
 <!-- AREAS -->
 <section class="areas" id="areas">
-  <div class="areas-bg"></div>
+  <div class="areas-bg" data-parallax="0.2"></div>
   <div class="areas-inner">
     <span class="label reveal">Where We Work</span>
     <h2 class="reveal d1">Three communities.<br><em>One crew you know.</em></h2>
@@ -672,12 +688,25 @@ a{color:inherit;text-decoration:none}
 
   var nav = document.getElementById('nav');
   var heroBg = document.getElementById('heroBg');
+  var parallaxEls = Array.prototype.slice.call(document.querySelectorAll('[data-parallax]'));
+  function parallax(){
+    if(reduce || !parallaxEls.length) return;
+    var vh = window.innerHeight;
+    parallaxEls.forEach(function(el){
+      var r = el.parentElement.getBoundingClientRect();
+      if(r.bottom < -160 || r.top > vh + 160) return;
+      var speed = parseFloat(el.getAttribute('data-parallax')) || 0.1;
+      var delta = (r.top + r.height / 2) - vh / 2;
+      el.style.transform = 'translate3d(0,' + (-delta * speed).toFixed(1) + 'px,0)';
+    });
+  }
   function onScroll(){
     var y = window.scrollY;
     nav.classList.toggle('solid', y > 80);
     if(!reduce && y < window.innerHeight * 1.2){
       heroBg.style.transform = 'translateY(' + (y * 0.35) + 'px)';
     }
+    parallax();
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll);

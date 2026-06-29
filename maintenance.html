@@ -108,6 +108,39 @@ a{color:inherit;text-decoration:none}
 @media (max-width:860px){.reco{flex-direction:column;gap:.7rem}}
 @media (max-width:1080px){.tier-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.tier-grid{grid-template-columns:1fr}}
+
+/* ============ SCROLL REVEAL — Editorial Line-Reveal ============ */
+.rv-line{overflow:hidden;display:block}
+.rv-line>span{display:block;transform:translateY(105%);transition:transform .9s var(--ease)}
+.rv-scene.in .rv-line>span{transform:translateY(0)}
+.rv-pline{display:block}
+.rv-pline>span{display:inline-block;opacity:0;transform:translateY(14px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv-scene.in .rv-pline>span{opacity:1;transform:translateY(0)}
+.rv-fade-in{opacity:0;transform:translateY(10px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv-scene.in .rv-fade-in{opacity:1;transform:translateY(0)}
+.rv-fade-in.d1{transition-delay:.12s}
+.rv-fade-in.d2{transition-delay:.24s}
+.pbody-head .head-divider{transform:scaleY(0);transform-origin:top;transition:transform .9s var(--ease) .3s}
+.pbody-head.rv-scene.in .head-divider{transform:scaleY(1)}
+.rv-item{--d:0s;opacity:0;translate:0 24px;transition:opacity 1s var(--ease) var(--d),translate 1s var(--ease) var(--d)}
+.rv-item.in{opacity:1;translate:0 0}
+.label.rv-item{translate:0 8px;transition:opacity .6s var(--ease) var(--d),translate .6s var(--ease) var(--d)}
+.svc-grid li.rv-item,.tier-grid li.rv-item{transition:border-color .3s,transform .3s var(--ease),opacity 1.1s var(--ease) var(--d),translate 1.1s var(--ease) var(--d)}
+.svc-grid li.rv-item .svc-idx,.tier-grid li.rv-item .svc-idx{opacity:0;transform:translateX(-8px);transition:opacity .5s var(--ease) calc(var(--d) + .15s),transform .5s var(--ease) calc(var(--d) + .15s)}
+.svc-grid li.rv-item.in .svc-idx,.tier-grid li.rv-item.in .svc-idx{opacity:1;transform:translateX(0)}
+.svc-grid li.rv-item h3,.tier-grid li.rv-item h3{opacity:0;transform:translateY(8px);transition:opacity .6s var(--ease) calc(var(--d) + .2s),transform .6s var(--ease) calc(var(--d) + .2s)}
+.svc-grid li.rv-item.in h3,.tier-grid li.rv-item.in h3{opacity:1;transform:translateY(0)}
+.tier-grid li.rv-item .tier-badge{opacity:0;transition:opacity .5s var(--ease) calc(var(--d) + .3s)}
+.tier-grid li.rv-item.in .tier-badge{opacity:1}
+.advice-item.rv-item{transition:border-color .3s,opacity 1.1s var(--ease) var(--d),translate 1.1s var(--ease) var(--d)}
+.advice-item.rv-item .advice-label{opacity:0;transform:scale(.93);transform-origin:left center;transition:opacity .7s var(--ease) calc(var(--d) + .15s),transform .7s var(--ease) calc(var(--d) + .15s)}
+.advice-item.rv-item.in .advice-label{opacity:1;transform:scale(1)}
+.advice-item.rv-item p{opacity:0;transform:translateY(10px);transition:opacity .7s var(--ease) calc(var(--d) + .25s),transform .7s var(--ease) calc(var(--d) + .25s)}
+.advice-item.rv-item.in p{opacity:1;transform:translateY(0)}
+.visit-list li.rv-item{translate:0 14px}
+@media (prefers-reduced-motion:reduce){
+  .rv-line>span,.rv-pline>span,.rv-fade-in,.rv-item,.pbody-head .head-divider{transition:none!important;transform:none!important;translate:none!important;opacity:1!important}
+}
 </style>
 </head>
 <body>
@@ -129,79 +162,79 @@ a{color:inherit;text-decoration:none}
 
 <header class="phero">
   <div class="phero-bg"></div>
-  <div class="phero-inner">
-    <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 21V10"/><path d="M12 14c-1.6-3.2-4.8-4.4-8-4.4 0 3.2 2.4 5.4 8 5.4z"/><path d="M12 11c1.3-2.7 4-3.8 6.8-3.8 0 2.7-1.9 4.8-6.8 4.8z"/></svg></span>
-    <span class="label">What We Do</span>
-    <h1>Maintenance</h1>
-    <p>Year-round care to keep your landscape healthy, clean, and thriving.</p>
+  <div class="phero-inner rv-scene">
+    <span class="icon rv-fade-in"><svg viewBox="0 0 24 24"><path d="M12 21V10"/><path d="M12 14c-1.6-3.2-4.8-4.4-8-4.4 0 3.2 2.4 5.4 8 5.4z"/><path d="M12 11c1.3-2.7 4-3.8 6.8-3.8 0 2.7-1.9 4.8-6.8 4.8z"/></svg></span>
+    <span class="label rv-fade-in">What We Do</span>
+    <h1 data-split-head>Maintenance</h1>
+    <p data-split-lead>Year-round care to keep your landscape healthy, clean, and thriving.</p>
   </div>
 </header>
 
 <section class="pbody">
-  <div class="pbody-head">
+  <div class="pbody-head rv-scene">
     <div>
-      <span class="label">Maintenance Plans</span>
-      <h2>Find the right rhythm for your yard.</h2>
+      <span class="label rv-fade-in">Maintenance Plans</span>
+      <h2 data-split-head>Find the right rhythm for your yard.</h2>
     </div>
     <div class="head-divider"></div>
-    <p class="lead">Every landscape does best on a regular rhythm. We offer a few ways to schedule your care — choose the one that fits how you use your yard, or ask us which we'd recommend for yours.</p>
+    <p class="lead" data-split-lead>Every landscape does best on a regular rhythm. We offer a few ways to schedule your care — choose the one that fits how you use your yard, or ask us which we'd recommend for yours.</p>
   </div>
   <ul class="svc-grid tier-grid">
-    <li><span class="svc-idx">01</span><span class="tier-badge">Most Popular</span><h3>Monthly</h3><span class="billing">Set Rate</span><p>One flat rate, every month. The easiest way to keep a yard consistently maintained, with no surprises on the bill.</p></li>
-    <li><span class="svc-idx">02</span><h3>Bi-Monthly</h3><span class="billing">Hourly</span><p>Service every other month, billed hourly for time on site.</p></li>
-    <li><span class="svc-idx">03</span><h3>Quarterly</h3><span class="billing">Hourly</span><p>Service every three months, billed hourly — suited to hands-off stretches between visits.</p></li>
-    <li><span class="svc-idx">04</span><h3>On-Call</h3><span class="billing">Hourly</span><p>Call us when you need us, billed hourly per visit, with no recurring schedule.</p></li>
+    <li class="rv-item"><span class="svc-idx">01</span><span class="tier-badge">Most Popular</span><h3>Monthly</h3><span class="billing">Set Rate</span><p>One flat rate, every month. The easiest way to keep a yard consistently maintained, with no surprises on the bill.</p></li>
+    <li class="rv-item"><span class="svc-idx">02</span><h3>Bi-Monthly</h3><span class="billing">Hourly</span><p>Service every other month, billed hourly for time on site.</p></li>
+    <li class="rv-item"><span class="svc-idx">03</span><h3>Quarterly</h3><span class="billing">Hourly</span><p>Service every three months, billed hourly — suited to hands-off stretches between visits.</p></li>
+    <li class="rv-item"><span class="svc-idx">04</span><h3>On-Call</h3><span class="billing">Hourly</span><p>Call us when you need us, billed hourly per visit, with no recurring schedule.</p></li>
   </ul>
 
-  <div class="visit-card">
-    <span class="label">What We Do Each Visit</span>
+  <div class="visit-card rv-scene">
+    <span class="label rv-fade-in">What We Do Each Visit</span>
     <ul class="visit-list">
-      <li>Prune all shrubs, plants &amp; trees as needed</li>
-      <li>Pick up debris and blow the entire yard</li>
-      <li>Turn on valves manually to inspect irrigation is functioning correctly</li>
-      <li>Remove weeds by hand</li>
-      <li>Fertilize plants as needed</li>
-      <li>Trim trees up to 15 ft tall</li>
+      <li class="rv-item">Prune all shrubs, plants &amp; trees as needed</li>
+      <li class="rv-item">Pick up debris and blow the entire yard</li>
+      <li class="rv-item">Turn on valves manually to inspect irrigation is functioning correctly</li>
+      <li class="rv-item">Remove weeds by hand</li>
+      <li class="rv-item">Fertilize plants as needed</li>
+      <li class="rv-item">Trim trees up to 15 ft tall</li>
     </ul>
   </div>
 
-  <span class="label sub-label">Which Plan Is Right for You</span>
+  <span class="label sub-label rv-item">Which Plan Is Right for You</span>
   <div class="advice">
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">Why do most customers go monthly?</span>
       <p>Monthly is our most popular plan, and for good reason — it's the best way to keep a yard looking pristine year-round, and it puts our crew on your property often enough to catch small problems early. A struggling plant usually has about 30 days before the damage becomes permanent; on a 60- or 120-day cycle, by the time we spot a leak or a stressed plant, it's often too late to save it.</p>
     </div>
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">What if I'm hands-on with my own yard?</span>
       <p>Bi-monthly and quarterly plans tend to suit customers who are more hands-on with their own yard and don't leave for the summer — they handle the light, regular upkeep themselves and bring us in to do the heavy lifting.</p>
     </div>
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">What about on-call service?</span>
       <p>On-call is billed hourly with no recurring schedule, so we can't guarantee getting you on the calendar quickly. It works best as an occasional option, not as your primary care plan.</p>
     </div>
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">How does scheduling actually work?</span>
       <p>We don't assign a fixed day for monthly service, but our crews run a consistent route — you can expect us within a couple of days of the same time each month. If you need a specific day for a special occasion, just let us know and we'll accommodate it.</p>
     </div>
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">Anything else I should know?</span>
       <p>Trees over 15 ft are trimmed when needed and billed separately, and our annual pre-emergent treatment is billed by yard size. Want extra peace of mind? Add our Weekly Irrigation Check for $100/month.</p>
     </div>
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">What about citrus fertilization?</span>
       <p>We automatically fertilize citrus trees three times a year — in February, May, and September — so you don't have to keep track of it yourself.</p>
     </div>
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">Will you handle my irrigation timer?</span>
       <p>Yes, we will handle the irrigation timer, and we will also handle changing watering needs for the seasonal requirements. Typically, we have it on two schedules: the summer schedule and the winter schedule. Our irrigation tech will come by automatically and change all the yards.</p>
     </div>
   </div>
 </section>
 
-<section class="pcta">
-  <h2>Ready to talk about <em>your</em> yard?</h2>
-  <p>Request a free quote — you don't even need to be home. We'll walk the property, talk through what you need, and follow up with your number.</p>
-  <a href="index.html#contact" class="btn btn-solid">Get a Free Quote</a>
+<section class="pcta rv-scene">
+  <h2 class="rv-fade-in">Ready to talk about <em>your</em> yard?</h2>
+  <p data-split-lead>Request a free quote — you don't even need to be home. We'll walk the property, talk through what you need, and follow up with your number.</p>
+  <a href="index.html#contact" class="btn btn-solid rv-fade-in d2">Get a Free Quote</a>
 </section>
 
 <footer class="pfoot">
@@ -209,5 +242,46 @@ a{color:inherit;text-decoration:none}
   <span>ROC #307998 · <a href="tel:4804717480">480-471-7480</a></span>
 </footer>
 
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function splitLines(el, cls){
+    var words = el.textContent.trim().split(/\s+/);
+    el.innerHTML = words.map(function(w){ return '<span class="rv-w">'+w+' </span>'; }).join('');
+    var spans = el.querySelectorAll('.rv-w');
+    var lines = []; var lastTop = null;
+    spans.forEach(function(s){
+      var top = s.offsetTop;
+      if(top !== lastTop){ lines.push([]); lastTop = top; }
+      lines[lines.length - 1].push(s.textContent);
+    });
+    el.innerHTML = lines.map(function(words, i){
+      return '<span class="'+cls+'"><span style="transition-delay:'+(i*0.09).toFixed(2)+'s">'+words.join('')+'</span></span>';
+    }).join('');
+  }
+
+  if(reduce){
+    document.querySelectorAll('.rv-scene,.rv-item').forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+
+  document.querySelectorAll('[data-split-head]').forEach(function(el){ splitLines(el, 'rv-line'); });
+  document.querySelectorAll('[data-split-lead]').forEach(function(el){ splitLines(el, 'rv-pline'); });
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+
+  document.querySelectorAll('.rv-scene').forEach(function(el){ io.observe(el); });
+
+  document.querySelectorAll('.rv-item').forEach(function(el){
+    var idx = Array.prototype.indexOf.call(el.parentElement.children, el);
+    el.style.setProperty('--d', Math.min(idx*0.08, 0.4)+'s');
+    io.observe(el);
+  });
+})();
+</script>
 </body>
 </html>

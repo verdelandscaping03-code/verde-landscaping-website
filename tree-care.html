@@ -100,6 +100,39 @@ a{color:inherit;text-decoration:none}
 .pfoot a{color:var(--green-lt)}
 
 @media (max-width:860px){.reco{flex-direction:column;gap:.7rem}}
+
+/* ============ SCROLL REVEAL — Editorial Line-Reveal ============ */
+.rv-line{overflow:hidden;display:block}
+.rv-line>span{display:block;transform:translateY(105%);transition:transform .9s var(--ease)}
+.rv-scene.in .rv-line>span{transform:translateY(0)}
+.rv-pline{display:block}
+.rv-pline>span{display:inline-block;opacity:0;transform:translateY(14px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv-scene.in .rv-pline>span{opacity:1;transform:translateY(0)}
+.rv-fade-in{opacity:0;transform:translateY(10px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv-scene.in .rv-fade-in{opacity:1;transform:translateY(0)}
+.rv-fade-in.d1{transition-delay:.12s}
+.rv-fade-in.d2{transition-delay:.24s}
+.pbody-head .head-divider{transform:scaleY(0);transform-origin:top;transition:transform .9s var(--ease) .3s}
+.pbody-head.rv-scene.in .head-divider{transform:scaleY(1)}
+.rv-item{--d:0s;opacity:0;translate:0 24px;transition:opacity 1s var(--ease) var(--d),translate 1s var(--ease) var(--d)}
+.rv-item.in{opacity:1;translate:0 0}
+.label.rv-item{translate:0 8px;transition:opacity .6s var(--ease) var(--d),translate .6s var(--ease) var(--d)}
+.svc-grid li.rv-item,.tier-grid li.rv-item{transition:border-color .3s,transform .3s var(--ease),opacity 1.1s var(--ease) var(--d),translate 1.1s var(--ease) var(--d)}
+.svc-grid li.rv-item .svc-idx,.tier-grid li.rv-item .svc-idx{opacity:0;transform:translateX(-8px);transition:opacity .5s var(--ease) calc(var(--d) + .15s),transform .5s var(--ease) calc(var(--d) + .15s)}
+.svc-grid li.rv-item.in .svc-idx,.tier-grid li.rv-item.in .svc-idx{opacity:1;transform:translateX(0)}
+.svc-grid li.rv-item h3,.tier-grid li.rv-item h3{opacity:0;transform:translateY(8px);transition:opacity .6s var(--ease) calc(var(--d) + .2s),transform .6s var(--ease) calc(var(--d) + .2s)}
+.svc-grid li.rv-item.in h3,.tier-grid li.rv-item.in h3{opacity:1;transform:translateY(0)}
+.tier-grid li.rv-item .tier-badge{opacity:0;transition:opacity .5s var(--ease) calc(var(--d) + .3s)}
+.tier-grid li.rv-item.in .tier-badge{opacity:1}
+.advice-item.rv-item{transition:border-color .3s,opacity 1.1s var(--ease) var(--d),translate 1.1s var(--ease) var(--d)}
+.advice-item.rv-item .advice-label{opacity:0;transform:scale(.93);transform-origin:left center;transition:opacity .7s var(--ease) calc(var(--d) + .15s),transform .7s var(--ease) calc(var(--d) + .15s)}
+.advice-item.rv-item.in .advice-label{opacity:1;transform:scale(1)}
+.advice-item.rv-item p{opacity:0;transform:translateY(10px);transition:opacity .7s var(--ease) calc(var(--d) + .25s),transform .7s var(--ease) calc(var(--d) + .25s)}
+.advice-item.rv-item.in p{opacity:1;transform:translateY(0)}
+.visit-list li.rv-item{translate:0 14px}
+@media (prefers-reduced-motion:reduce){
+  .rv-line>span,.rv-pline>span,.rv-fade-in,.rv-item,.pbody-head .head-divider{transition:none!important;transform:none!important;translate:none!important;opacity:1!important}
+}
 </style>
 </head>
 <body>
@@ -121,63 +154,63 @@ a{color:inherit;text-decoration:none}
 
 <header class="phero">
   <div class="phero-bg"></div>
-  <div class="phero-inner">
-    <span class="icon"><svg viewBox="0 0 24 24"><circle cx="6.5" cy="17.5" r="2.6"/><circle cx="17.5" cy="17.5" r="2.6"/><path d="M8.4 15.6 20 4"/><path d="M15.6 15.6 4 4"/><path d="M11 12.6 12 11.6"/></svg></span>
-    <span class="label">What We Do</span>
-    <h1>Tree Care</h1>
-    <p>Professional pruning, trimming, and shaping for healthy desert growth.</p>
+  <div class="phero-inner rv-scene">
+    <span class="icon rv-fade-in"><svg viewBox="0 0 24 24"><circle cx="6.5" cy="17.5" r="2.6"/><circle cx="17.5" cy="17.5" r="2.6"/><path d="M8.4 15.6 20 4"/><path d="M15.6 15.6 4 4"/><path d="M11 12.6 12 11.6"/></svg></span>
+    <span class="label rv-fade-in">What We Do</span>
+    <h1 data-split-head>Tree Care</h1>
+    <p data-split-lead>Professional pruning, trimming, and shaping for healthy desert growth.</p>
   </div>
 </header>
 
 <section class="pbody">
-  <div class="pbody-head">
+  <div class="pbody-head rv-scene">
     <div>
-      <span class="label">Tree Care</span>
-      <h2>Healthy growth, well-timed.</h2>
+      <span class="label rv-fade-in">Tree Care</span>
+      <h2 data-split-head>Healthy growth, well-timed.</h2>
     </div>
     <div class="head-divider"></div>
-    <p class="lead">Desert trees stay healthier — and safer — with regular, well-timed trimming. Our trim crew shapes and thins as part of your routine care, while a dedicated chipping crew clears every cut branch and hauls it away, so it doesn't sit piled in your yard.</p>
+    <p class="lead" data-split-lead>Desert trees stay healthier — and safer — with regular, well-timed trimming. Our trim crew shapes and thins as part of your routine care, while a dedicated chipping crew clears every cut branch and hauls it away, so it doesn't sit piled in your yard.</p>
   </div>
 
-  <div class="visit-card">
-    <span class="label">What We Do</span>
+  <div class="visit-card rv-scene">
+    <span class="label rv-fade-in">What We Do</span>
     <ul class="visit-list">
-      <li>Trees over 15 ft, trimmed proactively when our crew judges it's needed and billed separately</li>
-      <li>Shaping &amp; thinning to keep trees in good form for healthy growth</li>
-      <li>Removal of dead trees or trees that need to come down — we have the crew and equipment for it</li>
+      <li class="rv-item">Trees over 15 ft, trimmed proactively when our crew judges it's needed and billed separately</li>
+      <li class="rv-item">Shaping &amp; thinning to keep trees in good form for healthy growth</li>
+      <li class="rv-item">Removal of dead trees or trees that need to come down — we have the crew and equipment for it</li>
     </ul>
   </div>
 
 
-  <span class="label sub-label">What to Know About Tree Trimming</span>
+  <span class="label sub-label rv-item">What to Know About Tree Trimming</span>
   <div class="advice">
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">Why are trees over 15 ft billed separately?</span>
       <p>Routine trimming up to 15 ft is covered under your maintenance contract. Taller trees take more time, bigger equipment, and more care to cut safely, so our crew trims them proactively whenever they judge it's needed — not something you have to request — and bills that work separately afterward.</p>
     </div>
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">What happens to all the debris?</span>
       <p>We run a chipping crew separate from the crew doing the cutting. One team works through the tree while the other feeds the cut branches through the chipper and hauls debris off-site, so you're not left to deal with a pile of limbs yourself.</p>
     </div>
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">Do you handle storm damage or dead trees?</span>
       <p>Yes — we have the crew and equipment to remove dead trees or trees that need to come down, not just trim them. Let us know what you're dealing with and we'll take care of it, billed separately from your maintenance contract.</p>
     </div>
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">Are you arborists?</span>
       <p>No — we're landscapers, not certified arborists, so we won't diagnose tree disease or health issues. But for routine trimming, shaping, and removing a tree that needs to come down, we have the crew and equipment to handle it.</p>
     </div>
-    <div class="advice-item">
+    <div class="advice-item rv-item">
       <span class="advice-label">Anything else I should know?</span>
       <p>Citrus and other tree fertilization is timed to the desert growing season and can be added right into your routine maintenance visits.</p>
     </div>
   </div>
 </section>
 
-<section class="pcta">
-  <h2>Ready to talk about <em>your</em> yard?</h2>
-  <p>Request a free quote — you don't even need to be home. We'll walk the property, talk through what you need, and follow up with your number.</p>
-  <a href="index.html#contact" class="btn btn-solid">Get a Free Quote</a>
+<section class="pcta rv-scene">
+  <h2 class="rv-fade-in">Ready to talk about <em>your</em> yard?</h2>
+  <p data-split-lead>Request a free quote — you don't even need to be home. We'll walk the property, talk through what you need, and follow up with your number.</p>
+  <a href="index.html#contact" class="btn btn-solid rv-fade-in d2">Get a Free Quote</a>
 </section>
 
 <footer class="pfoot">
@@ -185,5 +218,46 @@ a{color:inherit;text-decoration:none}
   <span>ROC #307998 · <a href="tel:4804717480">480-471-7480</a></span>
 </footer>
 
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function splitLines(el, cls){
+    var words = el.textContent.trim().split(/\s+/);
+    el.innerHTML = words.map(function(w){ return '<span class="rv-w">'+w+' </span>'; }).join('');
+    var spans = el.querySelectorAll('.rv-w');
+    var lines = []; var lastTop = null;
+    spans.forEach(function(s){
+      var top = s.offsetTop;
+      if(top !== lastTop){ lines.push([]); lastTop = top; }
+      lines[lines.length - 1].push(s.textContent);
+    });
+    el.innerHTML = lines.map(function(words, i){
+      return '<span class="'+cls+'"><span style="transition-delay:'+(i*0.09).toFixed(2)+'s">'+words.join('')+'</span></span>';
+    }).join('');
+  }
+
+  if(reduce){
+    document.querySelectorAll('.rv-scene,.rv-item').forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+
+  document.querySelectorAll('[data-split-head]').forEach(function(el){ splitLines(el, 'rv-line'); });
+  document.querySelectorAll('[data-split-lead]').forEach(function(el){ splitLines(el, 'rv-pline'); });
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+
+  document.querySelectorAll('.rv-scene').forEach(function(el){ io.observe(el); });
+
+  document.querySelectorAll('.rv-item').forEach(function(el){
+    var idx = Array.prototype.indexOf.call(el.parentElement.children, el);
+    el.style.setProperty('--d', Math.min(idx*0.08, 0.4)+'s');
+    io.observe(el);
+  });
+})();
+</script>
 </body>
 </html>
